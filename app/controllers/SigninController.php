@@ -14,7 +14,11 @@ class SigninController extends BaseController
     {
     	$user = User::findFirst(1);
     	$test = $user->created_on;
-    	echo $test;	
+
+        $password = 'thrice';
+
+        $hash = $this->security->hash($password);
+    	echo $hash;	
     	die;
   
 
@@ -33,5 +37,29 @@ class SigninController extends BaseController
         }
 
         $this->view->disable();*/
+    }
+
+    public function doSigninAction()
+    {
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $user = User::findFirstByUsername($email);
+        
+        if ($user) {
+            if ($this->security->checkHash($password, $user->password)) {
+                //The password is valid
+                echo $user->username;
+
+                $this->session->set('username', $user->username);
+                $this->session->set('id', $user->id);
+
+                $id = $this->session->get('id');
+                $name = $this->session->get('username');
+
+                print_r($_SESSION);
+                die;
+            }
+        }
     }
 }

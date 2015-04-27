@@ -81,7 +81,7 @@ try {
     // Directs where the url starts from.
     $di->set('url', function(){
         $url = new UrlProvider();
-        $url->setBaseUri('/xbox/public/');
+        $url->setBaseUri('/xbox-phalcon/public/');
         return $url;
     });
     
