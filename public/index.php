@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Flash\Direct as FlashDirect;
 
 try {
     
@@ -9,7 +10,8 @@ try {
     $loader = new \Phalcon\Loader();
     $loader->registerDirs([
         '../app/controllers/',
-        '../app/models'
+        '../app/models',
+        '../app/config'
     ]);
     $loader->register();
     
@@ -35,6 +37,12 @@ try {
         ]);
         return $view;
     });
+
+    $di->set('router', function() {
+        $router = new \Phalcon\Mvc\Router();
+        $router->mount(new GlobalRoutes());
+        return $router;
+    });
     
     // Session
     $di->setShared('session', function() {
@@ -42,17 +50,33 @@ try {
         $session->start();
         return $session;
     });
-    
-    // Meta-Data
-    /*$di['modelsMetadata'] = function() {
-      
-        $metaData = new \Phalcon\Mvc\Model\MetaData\Apc([
-           "lifetime" => 86400,
-            "prefix"  => "metaData"
-        ]);
-        return $metaData;
+
+    // Custom Dispatcher (overrides the default)
+    $di->set('dispatcher', function() use ($di) {
+        $eventsManager = $di->getShared('eventsManager');
+
+        // Custom ACL Class
+        $permission = new Permission();
+
+        // Listen for events from the persmission class
+        $eventsManager->attach('dispatch', $permission);
         
-    };*/
+        $dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $dispatcher->setEventsManager($eventsManager);
+        return $dispatcher;
+
+    });
+    
+    // Flash Data (Temp Data)
+    $di->set('flash', function() {
+        $flash = new \Phalcon\Flash\Session([
+            'error'   => 'alert alert-danger',
+            'success' => 'alert alert-success',
+            'notice'  => 'alert alert-info',
+            'warning' => 'alert alert-warning',
+        ]);
+        return $flash;
+    });
     
     // Directs where the url starts from.
     $di->set('url', function(){

@@ -35,7 +35,8 @@
               <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="signin">Sign in</a></li>
+              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+              <li><a href="../navbar-static-top/">Static top</a></li>
               <li><a href="../navbar-fixed-top/">Fixed top</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -46,14 +47,9 @@
 
       <?php echo $this->flash->output(); ?>
       
-	<div class='signin-container'>
-		<form class='form-signin' method='post' action='<?php echo $this->url->get('signin/doSignin'); ?>'>
-			<h2 class='form-signin-heading'>Please sign in</h2>
-			<input type='text' name='email' class='form-control' placeholder='Email address'>
-			<input type='password' name='password' class='form-control' placeholder='Password'>
-			<input class='btn btn-lg btn-primary btn-block' type='submit' value='Sign in'>
-		</form>
-	</div>
+    <div class="jumbotron">
+        <h1>Admin page</h1>
+    </div>
 
 
     </div> <!-- /container -->

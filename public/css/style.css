@@ -1,3 +1,7 @@
 body {
     background: silver;
 }
+.signin-container {
+	margin: auto;
+	width: 300px;
+}

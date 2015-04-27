@@ -8,7 +8,7 @@ a:5:{i:0;s:328:"<!DOCTYPE html>
       <?php echo $this->assets->outputCss('style'); ?>
       <?php echo $this->assets->outputJs('js'); ?>
       ";s:4:"head";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:8:"
-      ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:11;}}i:1;s:1449:"
+      ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:11;}}i:1;s:1375:"
 
   </head>
 
@@ -35,8 +35,7 @@ a:5:{i:0;s:328:"<!DOCTYPE html>
               <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-              <li><a href="../navbar-static-top/">Static top</a></li>
+              <li><a href="signin">Sign in</a></li>
               <li><a href="../navbar-fixed-top/">Fixed top</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -44,9 +43,11 @@ a:5:{i:0;s:328:"<!DOCTYPE html>
       </nav>
 
       <!-- Main component for a primary marketing message or call to action -->
+
+      <?php echo $this->flash->output(); ?>
       ";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:16:"
       
-      ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:49;}}i:2;s:154:"
+      ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:50;}}i:2;s:154:"
 
     </div> <!-- /container -->
 
