@@ -50,6 +50,8 @@
         <h1>Dashboard</h1>
     </div>
 
+    <?php echo $this->getContent(); ?>
+
 
     </div> <!-- /container -->
 

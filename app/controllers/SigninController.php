@@ -54,12 +54,14 @@ class SigninController extends BaseController
                 $this->session->set('username', $user->username);
                 $this->session->set('id', $user->id);
 
-                $id = $this->session->get('id');
-                $name = $this->session->get('username');
-
-                print_r($_SESSION);
-                die;
+                $this->response->redirect('index');
+                return false;
+                
             }
         }
+
+        $this->flash->error('Invalid credentials.');
+        $this->response->redirect('signin');
+        return false;
     }
 }
