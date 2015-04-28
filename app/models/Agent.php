@@ -6,6 +6,7 @@ class Agent extends Model
 {
 	public $id;
 	public $client_id;
+	public $supervisor_id;
 
 	public function initialize()
 	{
