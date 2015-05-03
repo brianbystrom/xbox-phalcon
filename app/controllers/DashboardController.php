@@ -11,11 +11,28 @@ class DashboardController extends BaseController
 		Tag::setTitle('Dashboard');
 		parent::initialize();
 
+		$managers = getManagers();
+
+		//$managers = Manager::find();
+
+		$agents = array();
+
+		foreach ($managers as $manager) {
+			foreach ($manager->agent as $agent) {
+				$agents[] = $agent->client_id;
+			}
+		}
+
+
+
+		print_r($agents);
+		die;
+
 		$surveys = $this->modelsManager->createBuilder()
-			->columns('Survey.*,Agent.*')
 			->from('Survey')
-			->where('driver = "Driver 1"')
-		    ->join('Survey', 'Survey.client_id = Agent.client_id', 'Agent')
+			->where('driver LIKE "%_%"')
+			->andWhere('score LIKE "%_%"')
+			->inWhere('client_id', $agents)
 		    ->getQuery()
 		    ->execute();
 		//$surveys = $query->executeQuery();
@@ -24,11 +41,14 @@ class DashboardController extends BaseController
 
     	//print_r($surveys);
 
+		$scores = array();
+
 		foreach($surveys as $survey) {
 			//echo $survey->id.' / '.$survey->score.' / '.$survey->driver.'<br>';
-			echo $survey->score.'<br>';
+			$scores[] = $survey->client_id;
 		}
 
+		print_r($scores);
 
 		echo '<hr>';
 
